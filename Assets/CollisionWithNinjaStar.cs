@@ -1,10 +1,12 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CollisionWithPaddle : MonoBehaviour
+
+public class CollisionWithNinjaStar : MonoBehaviour
 {
-    private bool doesCollideWithPaddle = false;
+    private List<GameObject> hitList = new List<GameObject>();
     private bool stun = false;
     
 
@@ -12,25 +14,37 @@ public class CollisionWithPaddle : MonoBehaviour
     {
         bool clicked = Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space);
 
-        if (doesCollideWithPaddle && clicked && !stun) 
+        if (clicked)
         {
-            Destroy(this.gameObject);
+            Debug.Log("Count of hit list: " + hitList.Count);
+        }
+
+        if (!(hitList.Count == 0) && clicked && !stun) 
+        {
+            for (int i = 0; i < hitList.Count; i++)
+            {
+                Destroy(hitList[hitList.Count - 1]);
+                //hitList.RemoveAt(hitList.Count - 1);
+                //Debug.Log("Killed projectile");
+            }
+
+            //Debug.Log("Is this empty: " + hitList.ToString());
         }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Paddle")
+        if (collision.gameObject.tag == "Ninja Star")
         {
-            doesCollideWithPaddle = true;
+            hitList.Add(collision.gameObject);
         }
     }
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Paddle")
+        if (collision.gameObject.tag == "Ninja Star")
         {
-            doesCollideWithPaddle = false;
+            hitList.Remove(collision.gameObject);
         }
     }
     //private void OnTriggerEnter2D(UnityEngine.Collider2D collision)
