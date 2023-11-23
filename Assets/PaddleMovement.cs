@@ -14,6 +14,7 @@ public class PaddleMovement : MonoBehaviour
         oldMousePos = Input.mousePosition;
         camera = GameObject.FindWithTag("MainCamera");
         size = camera.GetComponent<Camera>().orthographicSize;
+
     }
 
     // Update is called once per frame
