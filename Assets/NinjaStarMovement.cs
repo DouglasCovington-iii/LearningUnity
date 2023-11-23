@@ -25,7 +25,7 @@ public class NinjaStarMovement : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         l += movement_speed;
         this.transform.position = (1 - l) * firstControlPoint + l * secondControlPoint;

@@ -11,6 +11,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
     private DateTime startTime;
     private SpriteRenderer spriteRenderer;
     private bool isHitListEmpty;
+    private float stunTime;
 
 
     void Start()
@@ -18,6 +19,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
         hitList = new List<GameObject>();
         stun = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
+        stunTime = .5f;
     }
     void Update()
     {
@@ -64,7 +66,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
             TimeSpan elapsedInter = currTime - startTime;
             double elaspedSeconds = elapsedInter.TotalSeconds;
 
-            if (elaspedSeconds >= 1)
+            if (elaspedSeconds >= stunTime)
             {
                 stun = false;
 
