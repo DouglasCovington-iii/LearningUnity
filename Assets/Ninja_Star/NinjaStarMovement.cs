@@ -7,14 +7,12 @@ using UnityEngine.UIElements;
 
 public class NinjaStarMovement : MonoBehaviour
 {
-    public float playerX;
-
     float movement_speed = 0.001f;
     float rotation_speed = -2;
     float cullingDistance = 5;
     Vector3 firstControlPoint;
     Vector3 secondControlPoint;
-    float cameraY, size, cullingX;
+    float cameraY, size, cullingX, playerX;
 
     float l;
 

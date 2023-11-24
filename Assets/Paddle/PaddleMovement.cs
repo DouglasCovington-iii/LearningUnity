@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class PaddleMovement : MonoBehaviour
 {
-    // Start is called before the first frame update
-    Vector3 oldMousePos;
-    float scale = .05f;
+
     GameObject camera;
     float size;
+    float halfBoundHeight;
+
+    // Start is called before the first frame update
     void Start()
     {
-        oldMousePos = Input.mousePosition;
         camera = GameObject.FindWithTag("MainCamera");
         size = camera.GetComponent<Camera>().orthographicSize;
-
+        halfBoundHeight = (this.gameObject.GetComponent<BoxCollider2D>().bounds.max.y - this.gameObject.GetComponent<BoxCollider2D>().bounds.min.y) / 2f;
     }
 
     // Update is called once per frame
@@ -29,14 +29,14 @@ public class PaddleMovement : MonoBehaviour
 
         this.transform.position = new Vector3(transform.position.x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, transform.position.z);
 
-        if (transform.position.y + transform.localScale.y / 2 > camera.transform.position.y + size)
+        if (transform.position.y + halfBoundHeight > camera.transform.position.y + size)
         {
-            this.transform.position = new Vector3(transform.position.x, camera.transform.position.y + size - transform.localScale.y / 2, transform.position.z);
+            this.transform.position = new Vector3(transform.position.x, camera.transform.position.y + size - halfBoundHeight, transform.position.z);
         }
 
-        if (transform.position.y - transform.localScale.y / 2 < camera.transform.position.y - size)
+        if (transform.position.y - halfBoundHeight < camera.transform.position.y - size)
         {
-            this.transform.position = new Vector3(transform.position.x, camera.transform.position.y - size + transform.localScale.y / 2, transform.position.z);
+            this.transform.position = new Vector3(transform.position.x, camera.transform.position.y - size + halfBoundHeight, transform.position.z);
         }
 
         //Debug.Log("(World Coordinates) Mouse Position: " + Camera.main.ScreenToWorldPoint(Input.mousePosition).ToString());

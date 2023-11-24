@@ -10,14 +10,14 @@ public class Spawner : MonoBehaviour
     public GameObject paddle;
     private float cameraY, size;
     private float spawnDistance = 10;
-    private float spawnX, playerX;
+    private float spawnX;
     void Start()
     {
         cameraY = Camera.main.transform.position.y;
         size = Camera.main.orthographicSize;
 
-        //playerX = GameObject()
         spawnX = Camera.main.transform.position.x - Camera.main.orthographicSize * Camera.main.aspect - spawnDistance;
+
     }
 
     // Update is called once per frame
@@ -25,9 +25,7 @@ public class Spawner : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-           GameObject ninja_star = Instantiate(projectile, new Vector3(spawnX, Random.RandomRange(cameraY - size, cameraY + size), 0), Quaternion.identity);
-           NinjaStarMovement temp = ninja_star.GetComponent<NinjaStarMovement>();
-           temp.playerX = 2;
+            Instantiate(projectile, new Vector3(spawnX, Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
         }
     }
 }

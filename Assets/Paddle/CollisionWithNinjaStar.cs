@@ -11,7 +11,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
     private DateTime startTime;
     private SpriteRenderer spriteRenderer;
     private bool isHitListEmpty;
-    private float stunTime;
+    private float stunTime = 0.5f;
 
 
     void Start()
@@ -19,7 +19,6 @@ public class CollisionWithNinjaStar : MonoBehaviour
         hitList = new List<GameObject>();
         stun = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
-        stunTime = .5f;
     }
     void Update()
     {
@@ -30,19 +29,19 @@ public class CollisionWithNinjaStar : MonoBehaviour
         //    Debug.Log("Count of hit list: " + hitList.Count);
         //}
 
-        if (Input.GetMouseButtonDown(0))
-        {
-            string s = transform.name;
-            Transform t = transform.parent;
+        //if (Input.GetMouseButtonDown(0))
+        //{
+        //    string s = transform.name;
+        //    Transform t = transform.parent;
 
-            while (t != null)
-            {
-                s = t.name + "/" + s;
-                t = t.parent;
-            }
+        //    while (t != null)
+        //    {
+        //        s = t.name + "/" + s;
+        //        t = t.parent;
+        //    }
 
-            Debug.Log("MouseDown " + Time.frameCount + " : " + s);
-        }
+        //    Debug.Log("MouseDown " + Time.frameCount + " : " + s);
+        //}
             
 
 
