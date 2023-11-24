@@ -272,7 +272,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e26e8f0c009a8f94786f0ed4fadf52af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameObject: {fileID: 360296650373378627, guid: afe2987392befab4e863b89c2c5b7f00, type: 3}
+  projectile: {fileID: 360296650373378627, guid: afe2987392befab4e863b89c2c5b7f00, type: 3}
 --- !u!1 &1143505424
 GameObject:
   m_ObjectHideFlags: 0
@@ -327,10 +327,10 @@ GameObject:
   m_Component:
   - component: {fileID: 1874993377}
   - component: {fileID: 1874993376}
-  - component: {fileID: 1874993375}
   - component: {fileID: 1874993378}
-  - component: {fileID: 1874993379}
   - component: {fileID: 1874993381}
+  - component: {fileID: 1874993375}
+  - component: {fileID: 1874993379}
   m_Layer: 0
   m_Name: Paddle
   m_TagString: Paddle
