@@ -11,6 +11,7 @@ public class NinjaStarMovement : MonoBehaviour
 
     float movement_speed = 0.001f;
     float rotation_speed = -2;
+    float cullingDistance = 5;
     Vector3 firstControlPoint;
     Vector3 secondControlPoint;
     float cameraY, size, cullingX;
@@ -22,13 +23,16 @@ public class NinjaStarMovement : MonoBehaviour
     {
         l = 0;
 
+        float rightBoundX = Camera.main.transform.position.x + Camera.main.orthographicSize * Camera.main.aspect;
+        //Hopefully doesn't slow down
+        playerX = GameObject.FindWithTag("Paddle").transform.position.x;
         cameraY = Camera.main.transform.position.y;
         size = Camera.main.orthographicSize;
 
         firstControlPoint = transform.position;
-        secondControlPoint = new Vector3(Camera.main.transform.position.x + Camera.main.orthographicSize * Camera.main.aspect, Random.RandomRange(cameraY - size, cameraY + size), 0);
+        secondControlPoint = new Vector3(playerX, Random.Range(cameraY - size, cameraY + size), 0);
 
-        cullingX = Camera.main.transform.position.x + Camera.main.orthographicSize * Camera.main.aspect + 5;
+        cullingX = Camera.main.transform.position.x + Camera.main.orthographicSize * Camera.main.aspect + cullingDistance;
     }
 
     // Update is called once per frame
