@@ -8,9 +8,9 @@ public class Spawner : MonoBehaviour
     // Start is called before the first frame update
     public GameObject projectile;
     public GameObject paddle;
-    private float cameraY, size;
     private float spawnDistance = 10;
-    private float spawnX;
+    private float cameraY, spawnX, size;
+
     void Start()
     {
         cameraY = Camera.main.transform.position.y;
