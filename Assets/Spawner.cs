@@ -42,7 +42,7 @@ public class Spawner : MonoBehaviour
         spawnIndex = 0;
 
         //Debug.Log(""move_time);
-        //StartCoroutine(PlaySong(offset));
+        StartCoroutine(PlaySong(offset));
 
     }
 
@@ -50,33 +50,33 @@ public class Spawner : MonoBehaviour
     void Update()
     {
 
-        if (SelfSpawn)
-        {
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
-            }
-        }
-        //if(!l1)
+        //if (SelfSpawn)
         //{
-        //    l1 = true;
-        //    startTime = DateTime.Now;
-        //}
-
-        ////if (ElaspedTime() >= offset && !l2)
-        ////{
-        ////    song.Play();
-        ////    l2 = true;
-        ////}
-
-        //if (spawnIndex < spawnTimes.Count)
-        //{
-        //    if (ElaspedTime() >= spawnTimes[spawnIndex])
+        //    if (Input.GetKeyDown(KeyCode.S))
         //    {
         //        Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
-        //        spawnIndex++;
         //    }
         //}
+        if (!l1)
+        {
+            l1 = true;
+            startTime = DateTime.Now;
+        }
+
+        //if (ElaspedTime() >= offset && !l2)
+        //{
+        //    song.Play();
+        //    l2 = true;
+        //}
+
+        if (spawnIndex < spawnTimes.Count)
+        {
+            if (ElaspedTime() >= spawnTimes[spawnIndex])
+            {
+                Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
+                spawnIndex++;
+            }
+        }
     }
 
     IEnumerator Spawn()
