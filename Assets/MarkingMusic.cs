@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class DeveloperMode : MonoBehaviour
+public class MarkingMusic : MonoBehaviour
 {
     public AudioSource song;
     public TextMeshPro displayTimer;

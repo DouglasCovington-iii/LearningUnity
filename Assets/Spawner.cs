@@ -13,15 +13,16 @@ public class Spawner : MonoBehaviour
     private float spawnDistance = 10;
     private float cameraY, spawnX, size;
     private List<float> spawnTimes;
-    private bool SelfSpawn = false;
+    private bool SelfSpawn = true;
     int spawnIndex;
     float offset = 3;
-    bool l1;
+    bool l1, l2;
     DateTime startTime;
 
     void Start()
     {
         l1 = false;
+        l2 = false;
 
         cameraY = Camera.main.transform.position.y;
         size = Camera.main.orthographicSize;
@@ -38,7 +39,9 @@ public class Spawner : MonoBehaviour
             spawnTimes.Add(hit - move_time + offset);
         }
 
- 
+        spawnIndex = 0;
+
+        //Debug.Log(""move_time);
         //StartCoroutine(PlaySong(offset));
 
     }
@@ -46,21 +49,34 @@ public class Spawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (SelfSpawn)
+
+        if (SelfSpawn)
+        {
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
+            }
+        }
+        //if(!l1)
         //{
-        //    if (Input.GetKeyDown(KeyCode.S))
+        //    l1 = true;
+        //    startTime = DateTime.Now;
+        //}
+
+        ////if (ElaspedTime() >= offset && !l2)
+        ////{
+        ////    song.Play();
+        ////    l2 = true;
+        ////}
+
+        //if (spawnIndex < spawnTimes.Count)
+        //{
+        //    if (ElaspedTime() >= spawnTimes[spawnIndex])
         //    {
-        //        Instantiate(projectile, new Vector3(spawnX, Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
+        //        Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
+        //        spawnIndex++;
         //    }
         //}
-        
-        if (!l1)
-        {
-            l1 = true;
-            startTime = DateTime.Now;
-            StartCoroutine(PlaySong(offset));
-            StartCoroutine(Spawn());
-        }
     }
 
     IEnumerator Spawn()
@@ -86,7 +102,7 @@ public class Spawner : MonoBehaviour
         Debug.Log("Done Spawning");
     }
 
-    float GetElaspedTime()
+    float ElaspedTime()
     {
         DateTime curr = DateTime.Now;
         return (float)(curr - startTime).TotalSeconds;
