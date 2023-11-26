@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,9 +12,17 @@ public class LevelCreator
     public static void DoesStuff()
     {
         LevelObject assetente = ScriptableObject.CreateInstance<LevelObject>();
-        assetente.hitList = new List<float> { 1, 2, 4 };
 
-        AssetDatabase.CreateAsset(assetente, "Assets/LevelData/Level1.asset");
+        JsonPayload payload;
+        
+        using(System.IO.StreamReader reader = new System.IO.StreamReader(@"C:\dev\Unity\LetsLearnUnity\Assets\LevelData\HitTimesData.json"))
+        {
+            string jsonData = reader.ReadToEnd();
+            payload = UnityEngine.JsonUtility.FromJson<JsonPayload>(jsonData);
+        }
+
+        assetente.hitTimes = payload.hitTimes;
+        AssetDatabase.CreateAsset(assetente, "Assets/LevelData/Level.asset");
         AssetDatabase.SaveAssets();
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 public class MarkingMusic : MonoBehaviour
 {
-    public AudioSource song;
+    public AudioSource audioPlayer;
     public TextMeshPro displayTimer;
     bool l1, l2, l3, l4;
     DateTime startTime;
@@ -42,7 +42,7 @@ public class MarkingMusic : MonoBehaviour
                 if (!l3)
                 {
                     startTime = DateTime.Now;
-                    song.Play();
+                    audioPlayer.Play();
                     l3 = true;
                 }
 
@@ -61,28 +61,49 @@ public class MarkingMusic : MonoBehaviour
                     else
                     {
                         l4 = true;
-                        song.Stop();
+                        audioPlayer.Stop();
+
+
+                        //string temp = "";
+
+                        //for (int i = 0; i < hitTimes.Count; i++)
+                        //{
+                        //    temp += hitTimes[i] + " ";
+                        //}
+
+                        //Debug.Log(temp);
+
+                        string hitTimesJson = UnityEngine.JsonUtility.ToJson(new JsonPayload(hitTimes, song.clip));
+
+                        Debug.Log(hitTimesJson);
+
+                        using (System.IO.StreamWriter writer = new System.IO.StreamWriter($@"C:\dev\Unity\LetsLearnUnity\Assets\LevelData\HitTimesData.json", false))
+                        {
+                            writer.WriteLine(hitTimesJson);
+                        }
                         //Time.fixedDeltaTime = oldTimeStep;
                         //Time.maximumDeltaTime = oldMaxTimeStep;
 
-                        string output = "List<float> hitTimes = new List<float> {";
-                        string content = "";
+                        //string output = "List<float> hitTimes = new List<float> {";
+                        //string content = "";
 
-                        for(int i = 0; i < hitTimes.Count; i++)
-                        {
-                            if(i != hitTimes.Count - 1)
-                            {
-                                content += $"{hitTimes[i]}f, ";
-                            }
-                            else
-                            {
-                                content += $"{hitTimes[i]}f";
-                            }
-                        }
+                        //for(int i = 0; i < hitTimes.Count; i++)
+                        //{
+                        //    if(i != hitTimes.Count - 1)
+                        //    {
+                        //        content += $"{hitTimes[i]}f, ";
+                        //    }
+                        //    else
+                        //    {
+                        //        content += $"{hitTimes[i]}f";
+                        //    }
+                        //}
 
-                        output += content + "};";
+                        //output += content + "};";
 
-                        Debug.Log(output);
+                        //Debug.Log(output);
+
+
                     }
                 }
 
@@ -169,7 +190,19 @@ public class MarkingMusic : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         displayTimer.text = "Begin";
         l1 = true;
-        startTime = DateTime.Now;
-        song.Play();
+    }
+
+}
+
+[Serializable]
+public class JsonPayload
+{
+    public List<float> hitTimes;
+    public AudioClip song;
+
+    public JsonPayload(List<float> hitTimes, AudioClip song)
+    {
+        this.hitTimes = hitTimes;
+        this.song = song;
     }
 }

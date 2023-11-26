@@ -5,7 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName ="LevelData", menuName = "Level Asset")]
 public class LevelObject : ScriptableObject
 {
-    public List<float> hitList;
+    public List<float> hitTimes;
     public AudioClip song;
 }
 
