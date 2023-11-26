@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 public class NinjaStarMovement : MonoBehaviour
 {
-    float movement_speed = 0.001f;
+    public float movement_per_iteration = 0.001f;
     float rotation_speed = -2;
     float cullingDistance = 5;
     Vector3 firstControlPoint;
@@ -36,7 +36,7 @@ public class NinjaStarMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        l += movement_speed;
+        l += movement_per_iteration;
 
         transform.position = (1 - l) * firstControlPoint + l * secondControlPoint;
         transform.Rotate(0, 0, rotation_speed, Space.Self);

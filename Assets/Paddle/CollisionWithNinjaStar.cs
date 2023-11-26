@@ -51,7 +51,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
             stun = true;
             startTime = DateTime.Now;
 
-            Debug.Log("You Missed");
+            //Debug.Log("You Missed");
 
             Color color = spriteRenderer.color;
             color.a = .25f;
@@ -73,7 +73,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
                 color.a = 1f;
                 spriteRenderer.color = color;
 
-                Debug.Log("You are unfrozen");
+                //Debug.Log("You are unfrozen");
             }
         }
 
