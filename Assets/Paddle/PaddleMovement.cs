@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class PaddleMovement : MonoBehaviour
 {
-
-    GameObject camera;
+    public BoxCollider2D collider;
     float size;
     float halfBoundHeight;
+    float maxY, minY;
+    float portion_ofScreen = .15f;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        camera = GameObject.FindWithTag("MainCamera");
-        size = camera.GetComponent<Camera>().orthographicSize;
-        halfBoundHeight = (this.gameObject.GetComponent<BoxCollider2D>().bounds.max.y - this.gameObject.GetComponent<BoxCollider2D>().bounds.min.y) / 2f;
+        size = Camera.main.orthographicSize;
+        halfBoundHeight = (collider.bounds.max.y - collider.bounds.min.y) / 2f;
+
+        float boundaryLength = 2 * portion_ofScreen * size;
+
+        minY = Camera.main.transform.position.y - size + boundaryLength;
+        maxY = Camera.main.transform.position.y + size - boundaryLength;
+
     }
 
     // Update is called once per frame
@@ -29,14 +36,14 @@ public class PaddleMovement : MonoBehaviour
 
         this.transform.position = new Vector3(transform.position.x, Camera.main.ScreenToWorldPoint(Input.mousePosition).y, transform.position.z);
 
-        if (transform.position.y + halfBoundHeight > camera.transform.position.y + size)
+        if (transform.position.y + halfBoundHeight > maxY)
         {
-            this.transform.position = new Vector3(transform.position.x, camera.transform.position.y + size - halfBoundHeight, transform.position.z);
+            this.transform.position = new Vector3(transform.position.x, maxY - halfBoundHeight, transform.position.z);
         }
 
-        if (transform.position.y - halfBoundHeight < camera.transform.position.y - size)
+        if (transform.position.y - halfBoundHeight < minY)
         {
-            this.transform.position = new Vector3(transform.position.x, camera.transform.position.y - size + halfBoundHeight, transform.position.z);
+            this.transform.position = new Vector3(transform.position.x, minY + halfBoundHeight, transform.position.z);
         }
 
         //Debug.Log("(World Coordinates) Mouse Position: " + Camera.main.ScreenToWorldPoint(Input.mousePosition).ToString());

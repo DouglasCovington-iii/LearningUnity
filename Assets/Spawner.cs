@@ -1,18 +1,17 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
     // Start is called before the first frame update
-    public LevelObject level;
     public GameObject projectile;
     public GameObject paddle;
     public AudioSource audioPlayer;
     private float spawnDistance = 10;
-    private float cameraY, spawnX, size;
+    private float portionOfScreen = .15f;
+    private float cameraY, spawnX, size, minY, maxY;
     private List<float> spawnTimes;
     private bool SelfSpawn = true;
     int spawnIndex;
@@ -28,6 +27,13 @@ public class Spawner : MonoBehaviour
         cameraY = Camera.main.transform.position.y;
         size = Camera.main.orthographicSize;
         spawnX = Camera.main.transform.position.x - Camera.main.orthographicSize * Camera.main.aspect - spawnDistance;
+
+        float boundaryLength = 2 * portionOfScreen * size;
+
+        minY = cameraY - size + boundaryLength;
+        maxY = cameraY + size - boundaryLength;
+
+        LevelObject level = GameData.currLevel;
 
         List<float> hitTimes = level.hitTimes;
         audioPlayer.clip = level.song;
@@ -76,34 +82,34 @@ public class Spawner : MonoBehaviour
         {
             if (ElaspedTime() >= spawnTimes[spawnIndex])
             {
-                Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
+                Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(minY, maxY), 0), Quaternion.identity);
                 spawnIndex++;
             }
         }
     }
 
-    IEnumerator Spawn()
-    {
-        int spawnIndex = 0;
-        float waitTime = 0;
+    //IEnumerator Spawn()
+    //{
+    //    int spawnIndex = 0;
+    //    float waitTime = 0;
         
-        while (spawnIndex < spawnTimes.Count)
-        {
-            if (spawnIndex == 0)
-            {
-                waitTime = spawnTimes[spawnIndex];
-            }
-            else
-            {
-                waitTime = spawnTimes[spawnIndex] - spawnTimes[spawnIndex - 1];
-            }
-            yield return new WaitForSeconds(waitTime);
-            Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(cameraY - size, cameraY + size), 0), Quaternion.identity);
-            spawnIndex++;
-        }
+    //    while (spawnIndex < spawnTimes.Count)
+    //    {
+    //        if (spawnIndex == 0)
+    //        {
+    //            waitTime = spawnTimes[spawnIndex];
+    //        }
+    //        else
+    //        {
+    //            waitTime = spawnTimes[spawnIndex] - spawnTimes[spawnIndex - 1];
+    //        }
+    //        yield return new WaitForSeconds(waitTime);
+    //        Instantiate(projectile, new Vector3(spawnX, UnityEngine.Random.Range(cameraY - size + boundaryLength, cameraY + size - boundaryLength), 0), Quaternion.identity);
+    //        spawnIndex++;
+    //    }
 
-        Debug.Log("Done Spawning");
-    }
+    //    Debug.Log("Done Spawning");
+    //}
 
     float ElaspedTime()
     {

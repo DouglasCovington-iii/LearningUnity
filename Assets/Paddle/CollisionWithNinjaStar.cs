@@ -2,13 +2,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class CollisionWithNinjaStar : MonoBehaviour
 {
-    //public TextMeshPro scoreBoard;
+    public TextMeshPro scoreBoard;
     private List<GameObject> hitList;
     private bool stun;
     private DateTime startTime;
@@ -92,7 +91,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
             for (int i = 0; i < size; i++)
             {
                 Destroy(hitList[hitList.Count - 1]);
-                //UpdateOnHit();
+                UpdateOnHit();
                 //hitList.RemoveAt(hitList.Count - 1);
                 //Debug.Log("Killed projectile");
             }
@@ -118,7 +117,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
             score += 3 * basePoints;
         }
 
-        //scoreBoard.text = $"Score: {score}";
+        scoreBoard.text = $"Score: {score}";
 
 
     }
