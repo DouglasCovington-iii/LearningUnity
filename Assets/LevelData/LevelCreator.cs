@@ -22,7 +22,12 @@ public class LevelCreator
         }
 
         assetente.hitTimes = payload.hitTimes;
-        AssetDatabase.CreateAsset(assetente, "Assets/LevelData/Level.asset");
+        string songName = payload.songName;
+
+        AudioClip song = Resources.Load<AudioClip>($@"Songs\{songName}");
+        assetente.song = song;
+
+        AssetDatabase.CreateAsset(assetente, $"Assets/LevelData/{songName}.asset");
         AssetDatabase.SaveAssets();
     }
 }

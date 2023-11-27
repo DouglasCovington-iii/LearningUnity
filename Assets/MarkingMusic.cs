@@ -73,7 +73,7 @@ public class MarkingMusic : MonoBehaviour
 
                         //Debug.Log(temp);
 
-                        string hitTimesJson = UnityEngine.JsonUtility.ToJson(new JsonPayload(hitTimes, song.clip));
+                        string hitTimesJson = UnityEngine.JsonUtility.ToJson(new JsonPayload(hitTimes, audioPlayer.clip.name));
 
                         Debug.Log(hitTimesJson);
 
@@ -198,11 +198,11 @@ public class MarkingMusic : MonoBehaviour
 public class JsonPayload
 {
     public List<float> hitTimes;
-    public AudioClip song;
+    public string songName;
 
-    public JsonPayload(List<float> hitTimes, AudioClip song)
+    public JsonPayload(List<float> hitTimes, string songName)
     {
         this.hitTimes = hitTimes;
-        this.song = song;
+        this.songName = songName;
     }
 }

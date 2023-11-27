@@ -1,21 +1,29 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 
 
 public class CollisionWithNinjaStar : MonoBehaviour
 {
+    //public TextMeshPro scoreBoard;
     private List<GameObject> hitList;
     private bool stun;
     private DateTime startTime;
     private SpriteRenderer spriteRenderer;
     private bool isHitListEmpty;
     private float stunTime = 0.5f;
+    int basePoints = 10;
+    int score, hitStreak;
 
 
     void Start()
     {
+        //scoreBoard.text = "Score: 0";
+        score = 0;
+        hitStreak = 0;
         hitList = new List<GameObject>();
         stun = false;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -50,6 +58,7 @@ public class CollisionWithNinjaStar : MonoBehaviour
         {
             stun = true;
             startTime = DateTime.Now;
+            hitStreak = 0;
 
             //Debug.Log("You Missed");
 
@@ -83,12 +92,35 @@ public class CollisionWithNinjaStar : MonoBehaviour
             for (int i = 0; i < size; i++)
             {
                 Destroy(hitList[hitList.Count - 1]);
+                //UpdateOnHit();
                 //hitList.RemoveAt(hitList.Count - 1);
                 //Debug.Log("Killed projectile");
             }
 
             //Debug.Log("Is this empty: " + hitList.ToString());
         }
+    }
+
+    void UpdateOnHit()
+    {
+        hitStreak++;
+
+        if (hitStreak <= 2)
+        {
+            score += basePoints;
+        }
+        else if(hitStreak <= 5)
+        {
+            score += 2 * basePoints;
+        }
+        else
+        {
+            score += 3 * basePoints;
+        }
+
+        //scoreBoard.text = $"Score: {score}";
+
+
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

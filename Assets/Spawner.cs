@@ -7,9 +7,10 @@ using UnityEngine;
 public class Spawner : MonoBehaviour
 {
     // Start is called before the first frame update
+    public LevelObject level;
     public GameObject projectile;
     public GameObject paddle;
-    public AudioSource song;
+    public AudioSource audioPlayer;
     private float spawnDistance = 10;
     private float cameraY, spawnX, size;
     private List<float> spawnTimes;
@@ -26,14 +27,16 @@ public class Spawner : MonoBehaviour
 
         cameraY = Camera.main.transform.position.y;
         size = Camera.main.orthographicSize;
-
         spawnX = Camera.main.transform.position.x - Camera.main.orthographicSize * Camera.main.aspect - spawnDistance;
-        List<float> hitTimes = new List<float> { 1.342972f, 1.702086f, 2.81387f, 3.19615f, 3.609685f, 4.347493f, 4.738717f, 5.797313f, 6.183011f, 6.581512f, 7.350471f, 7.747458f, 8.791831f, 9.188644f, 9.58757f, 10.34765f, 10.76881f, 11.77172f, 12.19487f, 12.58705f }; spawnTimes = new List<float>();
+
+        List<float> hitTimes = level.hitTimes;
+        audioPlayer.clip = level.song;
         
         float movement_per_iteration = projectile.GetComponent<NinjaStarMovement>().movement_per_iteration;
         float traveling_frames = Mathf.CeilToInt(1 / movement_per_iteration);
         float move_time = traveling_frames * Time.fixedDeltaTime;
 
+        spawnTimes = new List<float>();
         foreach (float hit in hitTimes)
         {
             spawnTimes.Add(hit - move_time + offset);
@@ -110,6 +113,6 @@ public class Spawner : MonoBehaviour
     IEnumerator PlaySong(float offset)
     {
         yield return new WaitForSeconds(offset);
-        song.Play();
+        audioPlayer.Play();
     }
 }
