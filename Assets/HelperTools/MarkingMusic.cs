@@ -31,56 +31,59 @@ public class MarkingMusic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.D)) || l1)
+        if (!Input.GetKeyDown(KeyCode.R))
         {
-            //displayTimer.text = "Musician mode activated";
-            if (!l2)
-                StartCoroutine(Intro(1));
-
-            if (l1)
+            if ((Input.GetKey(KeyCode.LeftControl) && Input.GetKeyDown(KeyCode.D)) || l1)
             {
-                if (!l3)
-                {
-                    startTime = DateTime.Now;
-                    audioPlayer.Play();
-                    l3 = true;
-                }
+                //displayTimer.text = "Musician mode activated";
+                if (!l2)
+                    StartCoroutine(Intro(1));
 
-                if (l3 && !l4)
+                if (l1)
                 {
-                    if (!Input.GetKeyDown(KeyCode.E))
+                    if (!l3)
                     {
-                        if (Input.GetMouseButtonDown(0))
-                        {
-                            totalClicks++;
-                            float elapsedTime = GetElaspedTime();
-                            Debug.Log($"click {totalClicks}:\t{elapsedTime}");
-                            hitTimes.Add(GetElaspedTime());
-                        }
+                        startTime = DateTime.Now;
+                        audioPlayer.Play();
+                        l3 = true;
                     }
-                    else
+
+                    if (l3 && !l4)
                     {
-                        l4 = true;
-                        audioPlayer.Stop();
-
-
-                        //string temp = "";
-
-                        //for (int i = 0; i < hitTimes.Count; i++)
-                        //{
-                        //    temp += hitTimes[i] + " ";
-                        //}
-
-                        //Debug.Log(temp);
-
-                        string hitTimesJson = UnityEngine.JsonUtility.ToJson(new JsonPayload(hitTimes, audioPlayer.clip.name));
-
-                        Debug.Log(hitTimesJson);
-
-                        using (System.IO.StreamWriter writer = new System.IO.StreamWriter($@"C:\dev\Unity\LetsLearnUnity\Assets\HelperTools\HitTimesData.json", false))
+                        if (!Input.GetKeyDown(KeyCode.S))
                         {
-                            writer.WriteLine(hitTimesJson);
+                            if (Input.GetMouseButtonDown(0))
+                            {
+                                totalClicks++;
+                                float elapsedTime = GetElaspedTime();
+                                Debug.Log($"click {totalClicks}:\t{elapsedTime}");
+                                hitTimes.Add(GetElaspedTime());
+                            }
                         }
+                        else
+                        {
+                            l4 = true;
+                            audioPlayer.Stop();
+
+
+                            //string temp = "";
+
+                            //for (int i = 0; i < hitTimes.Count; i++)
+                            //{
+                            //    temp += hitTimes[i] + " ";
+                            //}
+
+                            //Debug.Log(temp);
+
+                            string hitTimesJson = UnityEngine.JsonUtility.ToJson(new JsonPayload(hitTimes, audioPlayer.clip.name));
+
+                            Debug.Log(hitTimesJson);
+
+                            using (System.IO.StreamWriter writer = new System.IO.StreamWriter($@"C:\dev\Unity\LetsLearnUnity\Assets\HelperTools\HitTimesData.json", false))
+                            {
+                                writer.WriteLine(hitTimesJson);
+                            }
+        }
                         //Time.fixedDeltaTime = oldTimeStep;
                         //Time.maximumDeltaTime = oldMaxTimeStep;
 
@@ -132,6 +135,15 @@ public class MarkingMusic : MonoBehaviour
             //    }
             //}
         }
+        else
+        {
+            l1 = l2 = l3 = l4 = false;
+            audioPlayer.Stop();
+            StopAllCoroutines();
+            displayTimer.gameObject.SetActive(false);
+            hitTimes = new List<float>();
+            totalClicks = 0;
+        }
 
         //Debug.Log("Iteration");
     }
@@ -179,8 +191,8 @@ public class MarkingMusic : MonoBehaviour
         //Time.fixedDeltaTime = newTimeStep;
         //Time.maximumDeltaTime = newMaxTimeStep;
 
-        displayTimer.gameObject.SetActive(true);
         displayTimer.text = "Musician mode";
+        displayTimer.gameObject.SetActive(true);;
         yield return new WaitForSeconds(waitTime);
         displayTimer.text = "3";
         yield return new WaitForSeconds(waitTime);
@@ -188,7 +200,7 @@ public class MarkingMusic : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         displayTimer.text = "1";
         yield return new WaitForSeconds(waitTime);
-        displayTimer.text = "Begin";
+        displayTimer.gameObject.SetActive(false);
         l1 = true;
     }
 

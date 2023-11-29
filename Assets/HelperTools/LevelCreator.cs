@@ -12,7 +12,7 @@ public class LevelCreator
 {
 
     [UnityEditor.MenuItem("Assets/Create/Level Asset from Musician mode")]
-    public static void DoesStuff()
+    public static void CreateAssetFromHitTimesJson()
     {
         LevelObject assetente = ScriptableObject.CreateInstance<LevelObject>();
 
@@ -32,6 +32,8 @@ public class LevelCreator
 
         AssetDatabase.CreateAsset(assetente, $@"Assets\Resources\LevelData\{songName}.asset");
         AssetDatabase.SaveAssets();
+
+        Debug.Log($"Created {songName}.asset");
     }
 }
 

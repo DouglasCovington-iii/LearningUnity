@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -14,7 +15,9 @@ public class LevelContentMangager : MonoBehaviour
     public GameObject buttonGameObjPrefab;
     void Start()
     {
-        FileInfo[] listOfFiles = new DirectoryInfo(@"C:\dev\Unity\LetsLearnUnity\Assets\Resources\LevelData\").GetFiles();
+        List<FileInfo> listOfFiles = new List<FileInfo>(new DirectoryInfo(@"C:\dev\Unity\LetsLearnUnity\Assets\Resources\LevelData\").GetFiles());
+        listOfFiles.Sort((item1, item2) => item1.Name.CompareTo(item2.Name));
+
         List<string> listOfLevelNames = new List<string>();
 
         foreach (FileInfo file in listOfFiles)

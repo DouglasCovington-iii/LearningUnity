@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: LetsLearnUnity
+  productName: SoYouWantToBeANinja
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -627,7 +627,7 @@ PlayerSettings:
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: LetsLearnUnity
-  metroPackageVersion: 
+  metroPackageVersion: 1.0.0.0
   metroCertificatePath: 
   metroCertificatePassword: 
   metroCertificateSubject: 
@@ -635,7 +635,7 @@ PlayerSettings:
   metroCertificateNotAfter: 0000000000000000
   metroApplicationDescription: LetsLearnUnity
   wsaImages: {}
-  metroTileShortName: 
+  metroTileShortName: LetsLearnUnity
   metroTileShowName: 0
   metroMediumTileShowName: 0
   metroLargeTileShowName: 0
@@ -704,7 +704,7 @@ PlayerSettings:
   cloudProjectId: 85fbb356-8500-4f79-a76b-6a06ab1e9c7b
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: LetsLearnUnity
+  projectName: SoYouWantToBeANinja
   organizationId: x1xxbobxx1x
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0
