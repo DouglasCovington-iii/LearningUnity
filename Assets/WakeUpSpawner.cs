@@ -17,7 +17,7 @@ public class WakeUpSpawner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) && l1)
+        if (Input.GetKeyDown(KeyCode.S) && l1)
         {
             l1 = false;
             StartCoroutine(Intro(1));

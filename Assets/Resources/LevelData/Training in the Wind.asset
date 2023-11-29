@@ -13,7 +13,6 @@ MonoBehaviour:
   m_Name: Training in the Wind
   m_EditorClassIdentifier: 
   hitTimes:
-  - 8.559476
   - 9.084487
   - 9.452876
   - 9.798121

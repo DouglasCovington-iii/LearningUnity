@@ -15,7 +15,7 @@ public class Spawner : MonoBehaviour
     private List<float> spawnTimes;
     private bool SelfSpawn = true;
     int spawnIndex;
-    float offset = 3;
+    float offset = 2;
     bool l1, l2;
     DateTime startTime;
 
