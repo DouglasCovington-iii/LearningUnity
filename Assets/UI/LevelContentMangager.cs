@@ -16,7 +16,7 @@ public class LevelContentMangager : MonoBehaviour
     void Start()
     {
         List<FileInfo> listOfFiles = new List<FileInfo>(new DirectoryInfo(@"C:\dev\Unity\LetsLearnUnity\Assets\Resources\LevelData\").GetFiles());
-        listOfFiles.Sort((item1, item2) => item1.Name.CompareTo(item2.Name));
+        listOfFiles.Sort((item1, item2) => item2.Name.CompareTo(item1.Name));
 
         List<string> listOfLevelNames = new List<string>();
 

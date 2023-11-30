@@ -12,7 +12,7 @@ public class NinjaStarMovement : MonoBehaviour
     Vector3 firstControlPoint;
     Vector3 secondControlPoint;
     float cameraY, size, cullingX, playerX;
-    float epsilon = 0.005f;
+    float epsilon = 0.01f;
 
     float l;
 
